@@ -1,0 +1,20 @@
+<img src="{{all_stamp_groups.image}}" alt="image" style="width:200px">
+
+<h2>{{ all_stamp_groups.country}}</h2>
+
+{% if error_message %}
+    <p><strong>{{error_message}}</strong></p>
+{% endif %}
+
+<form  method="post" accept-charset="utf-8">
+    {% csrf_token %}
+    {% for stamp in all_stamp_groups.stamp_set.all %}
+        <label for="stamp {{ forloop.counter }}"><input type="radio" id="stamp{{ forloop.counter }}" name="stamp" value="{{ stamp.id }}">
+        {{stamp.year}}
+        {% if stamp.is_fav %}
+        <img src="https://cdn4.iconfinder.com/data/icons/Sizicons/16x16/star_blue.png" alt="fav_star">
+            {% endif %}
+        </label> </br>
+    {% endfor %}
+    <input type="submit" value="Favourite"></input>
+</form>
